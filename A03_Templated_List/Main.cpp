@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "TemplatedList.h"
+#include "TemplatedQueue.h"
 using namespace std;
 
 void main(void) {
@@ -69,6 +70,22 @@ void main(void) {
 	intList.~TemplatedList();
 	intList2.~TemplatedList();
 	intList3.~TemplatedList();
+
+	cout << "Start Templated Queue" << endl;
+	TemplatedQueue<float> myQ = TemplatedQueue<float>();
+	myQ.Enqueue(33);
+	myQ.Enqueue(34);
+	myQ.Enqueue(35);
+	myQ.Enqueue(36);
+
+	cout << myQ.Dequeue() << endl;
+	cout << myQ.Dequeue() << endl;
+	myQ.Enqueue(37);
+	cout << myQ.Dequeue() << endl;
+	cout << myQ.Dequeue() << endl;
+	cout << myQ.Dequeue() << endl;
+
+	myQ.~TemplatedQueue();
 
 	cout << "Press Enter to continue...";
 	getchar();

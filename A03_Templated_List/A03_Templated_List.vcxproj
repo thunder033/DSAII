@@ -143,6 +143,7 @@ copy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)bin"
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="TemplatedList.h" />
+    <ClInclude Include="TemplatedQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\ICON.rc" />
