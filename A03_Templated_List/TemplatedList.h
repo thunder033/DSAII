@@ -19,11 +19,12 @@ class TemplatedList
 	};
 
 	void Swap(TemplatedList& other) {
-		swap(entries, other.entries);
-		swap(size, other.size);
-		swap(data, other.data);
+		std::swap(entries, other.entries);
+		std::swap(size, other.size);
+		std::swap(data, other.data);
 	};
 public:
+
 	int GetSize()
 	{
 		return entries;
@@ -101,27 +102,23 @@ public:
 	};
 
 	//Copy Constructor
-	TemplatedList(const TemplatedList& other) {
+	TemplatedList(const TemplatedList<T>& other) 
+		: data(new T[other.size]),
+		size(other.size),
+		entries(other.entries) 
+	{
 		cout << "Called Copy Constructor" << endl;
 		TemplatedList<T> temp(other.entries);
-		memcpy(&temp, &other, sizeof(TemplatedList));
+		//memcpy(&temp.data, &other.data, other.size * sizeof(T));
+		copy(other.data, other.data + other.size, temp.data);
 		Swap(temp);
 	};
 
 	//Copy Assignment operator
-	//template <class T>
-	TemplatedList& operator=(TemplatedList other)
+	TemplatedList& operator=(TemplatedList rhs)
 	{
 		cout << "Called Copy Assignment" << endl;
-		if (this != &other && false)
-		{
-			Release();
-			TemplatedList<T> temp(other.GetSize());
-			memcpy(&temp, &other, sizeof(TemplatedList));
-			Swap(temp);
-		}
-		Swap(other);
+		Swap(rhs);
 		return *this;
 	};
 };
-
