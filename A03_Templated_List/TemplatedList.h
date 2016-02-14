@@ -3,9 +3,6 @@
 #include <iostream>
 using namespace std;
 
-#define _SCL_SECURE_NO_WARNINGS
-#pragma warning(disable:4996)
-
 template<class T>
 class TemplatedList
 {
@@ -20,16 +17,18 @@ class TemplatedList
 		}
 		entries = 0;
 	};
-	void Swap(TemplatedList<T>& other) {
-		swap(this->entries, other.entries);
-		swap(this->size, other.size);
-		swap(this->data, other.data);
+
+	void Swap(TemplatedList& other) {
+		swap(entries, other.entries);
+		swap(size, other.size);
+		swap(data, other.data);
 	};
 public:
-	int length()
+	int GetSize()
 	{
 		return entries;
 	};
+
 	void Push(T item)
 	{
 		if (size < entries + 1) {
@@ -45,26 +44,38 @@ public:
 		*(data + entries++) = item;
 
 	};
+
 	T Pop()
 	{
 		return *(data + --entries);
 	};
-	bool isEmpty()
+	bool IsEmpty()
 	{
 		return entries > 0;
 	};
 	void Print() {
-		cout << entries << " items in list: " << endl;
-		for (size_t i = 0; i < entries; i++)
-		{
-			cout << *(data + i) << endl;
-		}
+		cout << *this;
 	}
 
 	friend ostream& operator<<(ostream& os, const TemplatedList& list)
 	{
-
+		os << list.entries << " items in list: " << endl;
+		for (size_t i = 0; i < list.entries; i++)
+		{
+			os << i << ": " << list[i] << endl;
+		}
+		return os;
 	};
+
+	T operator [](int i) const
+	{
+		return *(data + i);
+	}
+
+	T & operator [](int i)
+	{
+		return *(data + i);
+	}
 
 	//Constructors
 	TemplatedList<T>() : data(nullptr), entries(0) 
@@ -90,22 +101,26 @@ public:
 	};
 
 	//Copy Constructor
-	TemplatedList<T>(const TemplatedList &other) {
-		TemplatedList<T> temp(other.size());
+	TemplatedList(const TemplatedList& other) {
+		cout << "Called Copy Constructor" << endl;
+		TemplatedList<T> temp(other.entries);
 		memcpy(&temp, &other, sizeof(TemplatedList));
 		Swap(temp);
 	};
 
 	//Copy Assignment operator
-	TemplatedList<T>& operator=(const TemplatedList<T>& other)
+	//template <class T>
+	TemplatedList& operator=(TemplatedList other)
 	{
-		if (this != &other)
+		cout << "Called Copy Assignment" << endl;
+		if (this != &other && false)
 		{
 			Release();
-			TemplatedList<T> temp(other.length());
+			TemplatedList<T> temp(other.GetSize());
 			memcpy(&temp, &other, sizeof(TemplatedList));
 			Swap(temp);
 		}
+		Swap(other);
 		return *this;
 	};
 };

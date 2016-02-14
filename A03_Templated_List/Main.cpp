@@ -2,23 +2,29 @@
 #include "TemplatedList.h"
 using namespace std;
 
-#define _SCL_SECURE_NO_WARNINGS
-#pragma warning(disable:4996)
-
 void main(void) {
 
-	TemplatedList<int>* intList = new TemplatedList<int>();
-	intList->Push(3);
-	intList->Push(4);
-	intList->Push(2);
+	TemplatedList<int> intList = TemplatedList<int>();
+	intList.Push(3);
+	intList.Push(4);
+	intList.Push(2);
 
-	intList->Print();
+	intList.Print();
 
-	cout << intList->length() << endl;
-	cout << intList->Pop() << endl;
-	cout << intList->length() << endl;
+	cout << intList.GetSize() << endl;
+	int myInt = intList.Pop();
+	cout << intList.GetSize() << endl;
+	intList.Push(5);
+	cout << myInt << endl;
 
-	delete intList;
+	//TemplatedList<int>* intList2 = new TemplatedList(intList);
+	TemplatedList<int> intList2(intList);
+	TemplatedList<int> intList3 = TemplatedList<int>();
+	//intList3 = intList;
+
+	intList.~TemplatedList();
+	//intList2.~TemplatedList();
+	//intList3.~TemplatedList();
 
 	cout << "Press Enter to continue...";
 	getchar();
