@@ -73,17 +73,20 @@ void main(void) {
 
 	cout << "Start Templated Queue" << endl;
 	TemplatedQueue<float> myQ = TemplatedQueue<float>();
-	myQ.Enqueue(33);
-	myQ.Enqueue(34);
-	myQ.Enqueue(35);
-	myQ.Enqueue(36);
+	//Entries, Size, DequeuedEntries
+	myQ.Enqueue(33); //1, 1, 0
+	myQ.Enqueue(34); //2, 2, 0
+	myQ.Enqueue(35); //3, 4, 0
+	myQ.Enqueue(36); //4, 4, 0
 
-	cout << myQ.Dequeue() << endl;
-	cout << myQ.Dequeue() << endl;
-	myQ.Enqueue(37);
-	cout << myQ.Dequeue() << endl;
-	cout << myQ.Dequeue() << endl;
-	cout << myQ.Dequeue() << endl;
+	//Entries, Size, DequeuedEntries
+	cout << myQ.Dequeue() << endl; //4, 4, 1
+	cout << myQ.Dequeue() << endl; //4, 4, 2
+	//enqueing here triggers memeory re-allocation and indexes reset
+	myQ.Enqueue(37);			   //3, 4, 0
+	cout << myQ.Dequeue() << endl; //2, 4, 1
+	cout << myQ.Dequeue() << endl; //1, 4, 2
+	cout << myQ.Dequeue() << endl; //0, 4, 3
 
 	myQ.~TemplatedQueue();
 

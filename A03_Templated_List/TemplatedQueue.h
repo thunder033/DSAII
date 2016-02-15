@@ -96,17 +96,6 @@ public:
 		return os;
 	};
 
-	//index operator overrides
-	T operator [](int i) const
-	{
-		return *(data + i);
-	}
-
-	T & operator [](int i)
-	{
-		return *(data + i);
-	}
-
 	//Constructors
 	//default constructor for simple initialization
 	TemplatedQueue<T>()
